@@ -1,17 +1,17 @@
 <script>
     import { getWeatherFrom } from '../services/weather.js';
+    import SearchBar from '../components/searchBar.svelte';
 
     let weatherData;
-    let query = 'Utrecht';
+    // let query = 'Utrecht';
 
     // Call the function when the component mounts or when the query changes
-    async function loadWeather() {
-        weatherData = await getWeatherFrom(query);
+    async function search(event) {
+        weatherData = await getWeatherFrom(event.detail);
     }
-
-    loadWeather();
 </script>
 
+<SearchBar on:search={search} />
 {#if weatherData}
     <h1>Weather in {weatherData.location.name}</h1>
     <p>Temperature: {weatherData.current.temp_c}°C</p>
@@ -21,7 +21,7 @@
     <p>Condition: {weatherData.current.condition.text}</p>
     <img src={weatherData.current.condition.icon} alt={weatherData.current.condition.text} />
 {:else}
-    <p>Loading weather data...</p>
+    <p>Enter some data...</p>
 {/if}
 
 <style>

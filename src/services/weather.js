@@ -15,6 +15,6 @@ export async function getWeatherFrom(query) {
         return await response.json();
     } catch (error) {
         console.error('Error:', error);
-        return null; // Return null or a default value in case of error
+        return null;
     }
 }
