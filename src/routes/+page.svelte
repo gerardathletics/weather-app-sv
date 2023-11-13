@@ -1,23 +1,15 @@
 <script>
-    const url = 'https://weatherapi-com.p.rapidapi.com/current.json?q=Buenos%20aires';
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '3f06335a07msh558b0cc534e5a5fp1bf89ejsn709cb99b4550',
-            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com',
-        },
-    };
+    import { getWeatherFrom } from '../services/weather.js';
 
-    // Declare a variable to store the weather data
     let weatherData;
+    let query = 'Utrecht';
 
-    // Fetch the weather data and store it in the weatherData variable
-    fetch(url, options)
-        .then((response) => response.json())
-        .then((response) => {
-            weatherData = response;
-        })
-        .catch((error) => console.error('Error:', error));
+    // Call the function when the component mounts or when the query changes
+    async function loadWeather() {
+        weatherData = await getWeatherFrom(query);
+    }
+
+    loadWeather();
 </script>
 
 {#if weatherData}
@@ -34,7 +26,13 @@
 
 <style>
     h1 {
-        color: #ff3e00;
+        color: #353535;
+        font-weight: 400;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    p {
+        color: #8e8e8e;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 400;
     }
 </style>
